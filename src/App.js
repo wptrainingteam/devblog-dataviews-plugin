@@ -2,6 +2,8 @@ import { DataViews } from '@wordpress/dataviews';
 import './style.scss';
 
 // source "data" definition
+import { dataPhotos } from './data';
+
 // "defaultLayouts" definition
 // "fields" definition
 

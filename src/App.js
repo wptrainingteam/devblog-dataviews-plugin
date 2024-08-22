@@ -1,4 +1,5 @@
-import { DataViews } from "@wordpress/dataviews";
+import { DataViews, filterSortAndPaginate } from "@wordpress/dataviews";
+import { useState, useMemo } from "@wordpress/element";
 import { getTopicsElementsFormat } from "./utils";
 import "./style.scss";
 
@@ -87,7 +88,26 @@ const fields = [
 ];
 const App = () => {
   // "view" and "setView" definition
+  const [view, setView] = useState({
+    type: "table",
+    perPage: 10,
+    layout: defaultLayouts.table.layout,
+    fields: [
+      "img_src",
+      "id",
+      "alt_description",
+      "author",
+      "topics",
+      "width",
+      "height",
+    ],
+  });
+
   // "processedData" and "paginationInfo" definition
+  const { data: processedData, paginationInfo } = useMemo(() => {
+    return filterSortAndPaginate(dataPhotos, view, fields);
+  }, [dataPhotos, view, fields]);
+
   // "actions" definition
 
   return (

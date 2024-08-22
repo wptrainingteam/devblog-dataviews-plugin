@@ -67,4 +67,10 @@ function devblog_dataviews_admin_enqueue_assets( $hook_suffix ) {
 		)
 	);
 
+	wp_enqueue_style(
+		'devblog-dataviews-styles',
+		$url . 'build/style-index.css',
+		array( 'wp-components' ),
+		$asset['version'],
+	);
 }

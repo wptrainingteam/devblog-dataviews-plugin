@@ -1,4 +1,5 @@
 import { DataViews } from '@wordpress/dataviews';
+import './style.scss';
 
 // source "data" definition
 // "defaultLayouts" definition

@@ -1,0 +1,14 @@
+{
+  "name": "devblog-dataviews-plugin",
+  "version": "0.1.0",
+  "author": "The WordPress Contributors",
+  "description": "Plugin with Admin menu option and dataviews",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^28.3.0"
+  }
+}

@@ -1,13 +1,7 @@
 import domReady from "@wordpress/dom-ready";
 import { createRoot } from "@wordpress/element";
 
-const App = () => {
-  return (
-    <div>
-      <p>Our React App</p>
-    </div>
-  );
-};
+import App from "./App";
 
 domReady(() => {
   const root = createRoot(

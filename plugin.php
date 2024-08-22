@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: DevBlog Dataviews Plugin
- * Description: A companion plugin for a WordPress Developer Blog article.
+ * Description: Displays a dataset of images for upload to the Media Library.
  * Version: 1.0.1
  * Requires at least: 6.1
  * Requires PHP: 7.4
@@ -33,3 +33,38 @@ function devblog_dataviews_admin_menu() {
 	);
 }
 
+add_action( 'admin_enqueue_scripts', 'devblog_dataviews_admin_enqueue_assets' );
+
+/**
+ * Enqueues JS and CSS files for our custom Media subsection page.
+ *
+ * @param string $hook_suffix The current admin page.
+ */
+function devblog_dataviews_admin_enqueue_assets( $hook_suffix ) {
+	// Load only on ?page=add-media-from-third-party-service.
+	if ( 'media_page_add-media-from-third-party-service' !== $hook_suffix ) {
+		return;
+	}
+
+	$dir = plugin_dir_path( __FILE__ );
+	$url = plugin_dir_url( __FILE__ );
+
+	$asset_file = $dir . 'build/index.asset.php';
+
+	if ( ! file_exists( $asset_file ) ) {
+		return;
+	}
+
+	$asset = include $asset_file;
+
+	wp_enqueue_script(
+		'devblog-dataviews-script',
+		$url . 'build/index.js',
+		$asset['dependencies'],
+		$asset['version'],
+		array(
+			'in_footer' => true,
+		)
+	);
+
+}

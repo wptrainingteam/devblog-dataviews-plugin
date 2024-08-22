@@ -6,6 +6,23 @@ import "./style.scss";
 import { dataPhotos } from "./data";
 
 // "defaultLayouts" definition
+const primaryField = "id";
+const mediaField = "img_src";
+
+const defaultLayouts = {
+  table: {
+    layout: {
+      primaryField,
+    },
+  },
+  grid: {
+    layout: {
+      primaryField,
+      mediaField,
+    },
+  },
+};
+
 // "fields" definition
 const fields = [
   {

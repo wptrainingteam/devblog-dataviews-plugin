@@ -1,6 +1,6 @@
 # Dataviews Plugin
 
-[![](https://img.shields.io/badge/playground-live%20preview-blue?logo=wordpress)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/wptrainingteam/devblog-dataviews-plugin/276d75bb3e074d4f44eee61d6e2fc63fc58d5a77/_playground/blueprint.json)
+[![](https://img.shields.io/badge/playground-live%20preview-blue?logo=wordpress)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/wptrainingteam/devblog-dataviews-plugin/27fbeb8c49c3cc735df7c6e9611579e0547d7760/_playground/blueprint.json)
 
 An exploration of using the Dataview component inside of a plugin
 

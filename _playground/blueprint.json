@@ -1,0 +1,15 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/wp-admin/admin.php?page=add-media-from-third-party-service",
+  "preferredVersions": {
+    "php": "8.0",
+    "wp": "6.6"
+  },
+  "features": {
+    "networking": true
+  },
+  "login": true,
+  "plugins": [
+    "https://github-proxy.com/proxy/?repo=wptrainingteam/devblog-dataviews-plugin&branch=step0"
+  ]
+}

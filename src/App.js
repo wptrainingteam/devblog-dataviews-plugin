@@ -113,7 +113,16 @@ const App = () => {
 	}, [ view ] );
 
 	// "actions" definition
-
+	const actions = [
+		{
+			id: 'see-original',
+			label: __( 'See Original' ),
+			callback: ( [ item ] ) => {
+				const urlImage = item.urls.raw;
+				window.open( urlImage, '_blank' );
+			},
+		},
+	];
 	return (
 		<DataViews
 			data={ processedData }

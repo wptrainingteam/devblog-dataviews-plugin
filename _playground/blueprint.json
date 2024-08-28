@@ -10,6 +10,6 @@
   },
   "login": true,
   "plugins": [
-    "https://github-proxy.com/proxy/?repo=wptrainingteam/devblog-dataviews-plugin&branch=step1"
+    "https://github-proxy.com/proxy/?repo=wptrainingteam/devblog-dataviews-plugin&branch=part1"
   ]
 }

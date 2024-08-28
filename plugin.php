@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'admin_menu', 'devblog_dataviews_admin_menu' );
 
 /**
- * Creates a new Media subsection and set the HTML for it.
+ * Creates a new Media subpage and set the HTML for it.
  */
 function devblog_dataviews_admin_menu() {
 	add_media_page(

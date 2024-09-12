@@ -1,17 +1,23 @@
 {
-  "name": "devblog-dataviews-plugin",
-  "version": "0.1.0",
-  "author": "The WordPress Contributors",
-  "description": "Plugin with Admin menu option and dataviews",
-  "license": "GPL-2.0-or-later",
-  "scripts": {
-    "build": "wp-scripts build",
-    "start": "wp-scripts start"
-  },
-  "devDependencies": {
-    "@wordpress/scripts": "^28.3.0"
-  },
-  "dependencies": {
-    "@wordpress/dataviews": "4.2.0"
-  }
+	"name": "devblog-dataviews-plugin",
+	"version": "0.1.0",
+	"author": "The WordPress Contributors",
+	"description": "Plugin with Admin menu option and dataviews",
+	"license": "GPL-2.0-or-later",
+	"scripts": {
+		"build": "tsc && wp-scripts build",
+		"start": "npx tsc --watch && wp-scripts start"
+	},
+	"devDependencies": {
+		"@types/react": "^18.3.5",
+		"@types/react-dom": "^18.3.0",
+		"@types/wordpress__dom-ready": "^2.9.0",
+		"@types/wordpress__element": "^2.14.1",
+		"@wordpress/scripts": "^28.3.0",
+		"ts-loader": "^9.5.1",
+		"typescript": "^5.6.2"
+	},
+	"dependencies": {
+		"@wordpress/dataviews": "4.2.0"
+	}
 }

@@ -127,6 +127,13 @@ const App = () => {
 					const blobImage = await responseRequestImage.blob();
 
 					// 2- Create FormData with the image blob
+					const formDataWithImage = new FormData();
+					formDataWithImage.append(
+						'file',
+						blobImage,
+						`${ image.slug }.jpg`
+					);
+
 					// 3- Send the request to the WP REST API with apiFetch
 				} );
 			},

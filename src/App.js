@@ -1,7 +1,7 @@
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { getTopicsElementsFormat } from './utils';
 import { useState, useMemo } from '@wordpress/element';
-import { withNotices } from '@wordpress/components';
+import { Spinner, withNotices } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -95,6 +95,9 @@ const fields = [
 ];
 const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 	const { createNotice } = noticeOperations;
+
+	const [ isUploadingItems, setIsUploadingItems ] = useState( [] );
+
 	// "view" and "setView" definition
 	const [ view, setView ] = useState( {
 		type: 'table',
@@ -118,6 +121,11 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 
 	const onSuccessMediaUpload = ( oImageUploaded ) => {
 		const title = oImageUploaded.title.rendered;
+		setIsUploadingItems( ( prevIsUploadingItems ) =>
+			prevIsUploadingItems.filter(
+				( slugLoading ) => slugLoading !== title
+			)
+		);
 
 		createNotice( {
 			status: 'success',
@@ -130,6 +138,7 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 	};
 
 	const onErrorMediaUpload = ( error ) => {
+		setIsUploadingItems( [] );
 		console.log( error );
 		createNotice( {
 			status: 'error',
@@ -149,6 +158,11 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 			callback: ( images ) => {
 				window.scrollTo( 0, 0 );
 				images.forEach( async ( image ) => {
+					setIsUploadingItems( ( prevIsUploadingItems ) => [
+						...prevIsUploadingItems,
+						image.slug,
+					] );
+
 					// 1- Download the image and convert it to a blob
 					const responseRequestImage = await fetch( image.urls.raw );
 					const blobImage = await responseRequestImage.blob();
@@ -183,6 +197,7 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 	];
 	return (
 		<>
+			{ !! isUploadingItems.length && <Spinner /> }
 			{ noticeUI }
 			<DataViews
 				data={ processedData }

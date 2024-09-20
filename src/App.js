@@ -122,7 +122,9 @@ const App = () => {
 			supportsBulk: true,
 			callback: ( images ) => {
 				images.forEach( ( image ) => {
-					console.log( `Image to upload: ${ image.slug }` );
+					// 1- Download the image and convert it to a blob
+					// 2- Create FormData with the image blob
+					// 3- Send the request to the WP REST API with apiFetch
 				} );
 			},
 		},

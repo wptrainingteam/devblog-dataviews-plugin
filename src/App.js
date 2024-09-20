@@ -115,6 +115,18 @@ const App = () => {
 	// "actions" definition
 	const actions = [
 		{
+			id: 'upload-media',
+			label: __( 'Upload Media' ),
+			isPrimary: true,
+			icon: 'upload',
+			supportsBulk: true,
+			callback: ( images ) => {
+				images.forEach( ( image ) => {
+					console.log( `Image to upload: ${ image.slug }` );
+				} );
+			},
+		},
+		{
 			id: 'see-original',
 			label: __( 'See Original' ),
 			callback: ( [ item ] ) => {

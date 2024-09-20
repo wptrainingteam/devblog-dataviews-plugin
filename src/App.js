@@ -1,7 +1,16 @@
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { getTopicsElementsFormat } from './utils';
 import { useState, useMemo } from '@wordpress/element';
-import { Spinner, withNotices } from '@wordpress/components';
+import {
+	SelectControl,
+	Button,
+	__experimentalText as Text,
+	__experimentalHStack as HStack,
+	__experimentalVStack as VStack,
+	Spinner,
+	withNotices,
+} from '@wordpress/components';
+
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -189,9 +198,42 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 		{
 			id: 'see-original',
 			label: __( 'See Original' ),
-			callback: ( [ item ] ) => {
-				const urlImage = item.urls.raw;
-				window.open( urlImage, '_blank' );
+			modalHeader: __( 'See Original Image', 'action label' ),
+			RenderModal: ( { items: [ item ], closeModal } ) => {
+				const [ size, setSize ] = useState( 'raw' );
+				return (
+					<VStack spacing="5">
+						<Text>
+							{ `Select the size you want to open for "${ item.slug }"` }
+						</Text>
+						<HStack justify="left">
+							<SelectControl
+								__nextHasNoMarginBottom
+								label="Size"
+								value={ size }
+								options={ Object.keys( item.urls )
+									.filter( ( url ) => url !== 'small_s3' )
+									.map( ( url ) => ( {
+										label: url,
+										value: url,
+									} ) ) }
+								onChange={ setSize }
+							/>
+						</HStack>
+						<HStack justify="right">
+							<Button
+								__next40pxDefaultSize
+								variant="primary"
+								onClick={ () => {
+									closeModal();
+									window.open( item.urls[ size ], '_blank' );
+								} }
+							>
+								Open image from original location
+							</Button>
+						</HStack>
+					</VStack>
+				);
 			},
 		},
 	];

@@ -1,6 +1,7 @@
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { getTopicsElementsFormat } from './utils';
 import { useState, useMemo } from '@wordpress/element';
+import { withNotices } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -92,7 +93,8 @@ const fields = [
 		enableSorting: true,
 	},
 ];
-const App = () => {
+const App = withNotices( ( { noticeOperations, noticeUI } ) => {
+	const { createNotice } = noticeOperations;
 	// "view" and "setView" definition
 	const [ view, setView ] = useState( {
 		type: 'table',
@@ -114,6 +116,28 @@ const App = () => {
 		return filterSortAndPaginate( dataPhotos, view, fields );
 	}, [ view ] );
 
+	const onSuccessMediaUpload = ( oImageUploaded ) => {
+		const title = oImageUploaded.title.rendered;
+
+		createNotice( {
+			status: 'success',
+			// translators: %s is the image title
+			content:
+				`${ title }.jpg ` +
+				__( 'succesfully uploaded to Media Library' ),
+			isDismissible: true,
+		} );
+	};
+
+	const onErrorMediaUpload = ( error ) => {
+		console.log( error );
+		createNotice( {
+			status: 'error',
+			content: __( 'An error occurred!' ),
+			isDismissible: true,
+		} );
+	};
+
 	// "actions" definition
 	const actions = [
 		{
@@ -123,6 +147,7 @@ const App = () => {
 			icon: 'upload',
 			supportsBulk: true,
 			callback: ( images ) => {
+				window.scrollTo( 0, 0 );
 				images.forEach( async ( image ) => {
 					// 1- Download the image and convert it to a blob
 					const responseRequestImage = await fetch( image.urls.raw );
@@ -141,7 +166,9 @@ const App = () => {
 						path: '/wp/v2/media',
 						method: 'POST',
 						body: formDataWithImage,
-					} ).then( console.log );
+					} )
+						.then( onSuccessMediaUpload )
+						.catch( onErrorMediaUpload );
 				} );
 			},
 		},
@@ -155,16 +182,19 @@ const App = () => {
 		},
 	];
 	return (
-		<DataViews
-			data={ processedData }
-			fields={ fields }
-			view={ view }
-			onChangeView={ setView }
-			defaultLayouts={ defaultLayouts }
-			actions={ actions }
-			paginationInfo={ paginationInfo }
-		/>
+		<>
+			{ noticeUI }
+			<DataViews
+				data={ processedData }
+				fields={ fields }
+				view={ view }
+				onChangeView={ setView }
+				defaultLayouts={ defaultLayouts }
+				actions={ actions }
+				paginationInfo={ paginationInfo }
+			/>
+		</>
 	);
-};
+} );
 
 export default App;

@@ -121,8 +121,11 @@ const App = () => {
 			icon: 'upload',
 			supportsBulk: true,
 			callback: ( images ) => {
-				images.forEach( ( image ) => {
+				images.forEach( async ( image ) => {
 					// 1- Download the image and convert it to a blob
+					const responseRequestImage = await fetch( image.urls.raw );
+					const blobImage = await responseRequestImage.blob();
+
 					// 2- Create FormData with the image blob
 					// 3- Send the request to the WP REST API with apiFetch
 				} );

@@ -2,6 +2,8 @@ import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { getTopicsElementsFormat } from './utils';
 import { useState, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import apiFetch from '@wordpress/api-fetch';
+
 import './style.scss';
 
 // source "data" definition
@@ -135,6 +137,11 @@ const App = () => {
 					);
 
 					// 3- Send the request to the WP REST API with apiFetch
+					await apiFetch( {
+						path: '/wp/v2/media',
+						method: 'POST',
+						body: formDataWithImage,
+					} ).then( console.log );
 				} );
 			},
 		},

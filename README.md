@@ -5,8 +5,8 @@
 An exploration of using the Dataview component inside of a plugin
 
 The process to build this project is explained in the following article of the [WordPress Developer Blog](https://developer.wordpress.org/news/): 
-- [Using Data Views to display and interact with data in plugins](https://developer.wordpress.org/news/2024/08/27/using-data-views-to-display-and-interact-with-data-in-plugins/)
 - [Actions from Data Views: Adding images to the Media Library](https://developer.wordpress.org/news/2024/09/23/actions-from-data-views-adding-images-to-the-media-library/)
+- [Using Data Views to display and interact with data in plugins](https://developer.wordpress.org/news/2024/08/27/using-data-views-to-display-and-interact-with-data-in-plugins/)
 
 ## Development
 

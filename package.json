@@ -9,6 +9,7 @@
     "start": "wp-scripts start"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.26.0",
     "@wordpress/scripts": "^30.6.2-next.cd6172eb0.0"
   },
   "dependencies": {

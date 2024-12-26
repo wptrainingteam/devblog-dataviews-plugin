@@ -9,9 +9,9 @@
     "start": "wp-scripts start"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^30.6.2-next.cd6172eb0.0"
+    "@wordpress/scripts": "^30.6.2"
   },
   "dependencies": {
-    "@wordpress/dataviews": "^4.9.1-next.cd6172eb0.0"
+    "@wordpress/dataviews": "^4.9.1"
   }
 }

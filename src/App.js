@@ -1,4 +1,4 @@
-import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews/wp';
+import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { getTopicsElementsFormat } from './utils';
 import { useState, useMemo } from '@wordpress/element';
 import {
@@ -9,7 +9,9 @@ import {
 	__experimentalVStack as VStack,
 	Spinner,
 	withNotices,
+	Icon,
 } from '@wordpress/components';
+import { image, category, postAuthor } from '@wordpress/icons';
 
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
@@ -42,6 +44,13 @@ const fields = [
 	{
 		id: 'img_src',
 		label: __( 'Image' ),
+		header: (
+			<HStack spacing={ 1 } justify="start">
+				<Icon icon={ image } />
+				<span>{ __( 'Image' ) }</span>
+			</HStack>
+		),
+		type: 'media',
 		render: ( { item } ) => (
 			<img alt={ item.alt_description } src={ item.urls.thumb } />
 		),
@@ -49,12 +58,20 @@ const fields = [
 	},
 	{
 		id: 'id',
-		label: __( 'ID' ),
+		label: __( 'Item' ),
+		type: 'text',
 		enableGlobalSearch: true,
 	},
 	{
 		id: 'author',
 		label: __( 'Author' ),
+		header: (
+			<HStack spacing={ 1 } justify="start">
+				<Icon icon={ postAuthor } />
+				<span>{ __( 'Author' ) }</span>
+			</HStack>
+		),
+		type: 'text',
 		getValue: ( { item } ) =>
 			`${ item.user.first_name } ${ item.user.last_name }`,
 		render: ( { item } ) => (
@@ -72,6 +89,13 @@ const fields = [
 	{
 		id: 'topics',
 		label: __( 'Topics' ),
+		header: (
+			<HStack spacing={ 1 } justify="start">
+				<Icon icon={ category } />
+				<span>{ __( 'Topics' ) }</span>
+			</HStack>
+		),
+		type: 'array',
 		elements: getTopicsElementsFormat( dataPhotos ),
 		render: ( { item } ) => {
 			return (
@@ -85,19 +109,21 @@ const fields = [
 			);
 		},
 		filterBy: {
-			operators: [ 'isAny', 'isNone', 'isAll', 'isNotAll' ],
+			operators: [ 'is', 'isNot' ],
 		},
 		enableSorting: false,
 	},
 	{
 		id: 'width',
 		label: __( 'Width' ),
+		type: 'integer',
 		getValue: ( { item } ) => parseInt( item.width ),
 		enableSorting: true,
 	},
 	{
 		id: 'height',
 		label: __( 'Height' ),
+		type: 'integer',
 		getValue: ( { item } ) => parseInt( item.height ),
 		enableSorting: true,
 	},
@@ -112,10 +138,13 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 		type: 'table',
 		perPage: 10,
 		layout: defaultLayouts.table.layout,
+		titleField: 'id',
+		descriptionField: 'alt_description',
+		mediaField: 'img_src',
 		fields: [
-			'img_src',
-			'id',
-			'alt_description',
+			// 'img_src',
+			// 'id',
+			// 'alt_description',
 			'author',
 			'topics',
 			'width',
@@ -249,6 +278,9 @@ const App = withNotices( ( { noticeOperations, noticeUI } ) => {
 				defaultLayouts={ defaultLayouts }
 				actions={ actions }
 				paginationInfo={ paginationInfo }
+				config={ {
+					perPageSizes: [ 10, 25, 50, 100 ],
+				} }
 			/>
 		</>
 	);

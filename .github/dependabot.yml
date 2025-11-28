@@ -1,0 +1,12 @@
+# Dependabot configuration for a JavaScript/npm project
+# Based on the WP Training Team Dependabot guide (Example 2).
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"              # location of package.json
+    schedule:
+      interval: "weekly"        # or "daily", "monthly"
+    assignees:
+      - "jonathanbossenger"
+    open-pull-requests-limit: 10
